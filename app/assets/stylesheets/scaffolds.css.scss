@@ -4,9 +4,7 @@ body {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px; 
-  width: 60%;
-  margin-left: 10%;
-  margin-right: auto;
+  width: 100%;
 }
 
 p, ol, ul, td {
@@ -71,12 +69,40 @@ div {
   font-family: DoulosSILW;
   src: url(DoulosSIL-R.woff);
 }
-
+$topbarheight: 40px;
+div#topbar{
+  position: fixed;
+  top: 0px;
+  height: $topbarheight;
+  width: 100%;
+  background: #9C0505;
+  h1{
+    color: white;
+    margin: 5px;
+    margin-left: 8%;
+  }
+  span#links{
+    top: 20%;
+    position: absolute;
+    margin: 5px;
+    margin-left: 50%;
+    width: 50%;
+    font-size: 16px;
+    a:link, a:visited{
+      color: white;
+    }
+  }
+}
+div#content{
+    margin-top: $topbarheight  + 10px;
+    width: 60%;
+    margin-left: 8%;
+}
 div#transcriptionguide{
 
     @include rounded-top;
 
-    width: 300px;
+    width: 20%;
     position: fixed;
     top: 150px;
     right: 8%;

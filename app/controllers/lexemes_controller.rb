@@ -25,9 +25,10 @@ class LexemesController < ApplicationController
     #@lexeme = Lexeme.find(params[:id])
     @matches = []
     #@nonmatches = []
-    @regex = params[:regex]
+    regex = params[:regex]
+    field = params[:field]
     Lexeme.all.each do |lexeme|
-        @matches << lexeme if Regexp.new(params[:regex]).match(lexeme.token)
+        @matches << lexeme if Regexp.new(regex).match(lexeme[field])
         #@nonmatches << lexeme unless Regexp.new(params[:regex]).match(lexeme.token)
     end
     respond_to do |format|

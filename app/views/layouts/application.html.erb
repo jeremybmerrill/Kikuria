@@ -7,9 +7,15 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+<div id="topbar">
+    <h1>Kikuria Database</h1>
+    <span id="links">
+    <a href="searchform">Search</a>
+    </span>
+</div>
+<div id="content">
 <%= yield %>
-
+</div>
 <div id="transcriptionguide">
   <h3>Practical Orthography</h3>
 <ul>

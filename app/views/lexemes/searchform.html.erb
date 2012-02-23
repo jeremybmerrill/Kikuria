@@ -1,0 +1,21 @@
+<h1>Search</h1>
+<%= form_tag("/lexemes/search", :method => "get") do %>
+  <%= label_tag(:regex, "Regex search:") %>
+  <%= text_field_tag(:regex) %>
+  <%= submit_tag("Search") %>
+  <% fields = [
+    ["Token", :token],
+    ["Gloss", :gloss],
+    ["P.O.S.", :pos],
+    ["Root", :root],
+    ["Sg. Noun Class Morpheme", :sgNounClassMorpheme],
+    ["Pl. Noun Class Morpheme", :plNounClassMorpheme],
+    ["Class/Group", :classOrGroup],
+    ["User", :user],
+    ["Date", :editDate],
+    ["Additional Forms", :additionalForms],
+    ["Notes", :notes],] %>
+  <%= select_tag(:field, options_for_select(fields)) %>
+<% end %>
+
+

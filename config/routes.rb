@@ -2,6 +2,7 @@ Kikuria::Application.routes.draw do
   resources :lexemes do
     collection do
       get 'search'
+      get 'searchform'
     end
   end
     
