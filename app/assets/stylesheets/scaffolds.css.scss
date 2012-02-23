@@ -1,0 +1,113 @@
+body {
+  background-color: #fff;
+  color: #333;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px; 
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+p, ol, ul, td {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px; }
+
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px; }
+
+a {
+  color: #000;
+  &:visited {
+    color: #666; }
+  &:hover {
+    color: #fff;
+    background-color: #000; } }
+
+div {
+  &.field, &.actions {
+    margin-bottom: 10px; } }
+
+#notice {
+  color: green; }
+
+.field_with_errors {
+  padding: 2px;
+  background-color: red;
+  display: table; }
+
+#error_explanation {
+  width: 450px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 0;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+  h2 {
+    text-align: left;
+    font-weight: bold;
+    padding: 5px 5px 5px 15px;
+    font-size: 12px;
+    margin: -7px;
+    margin-bottom: 0px;
+    background-color: #c00;
+    color: #fff; }
+  ul li {
+    font-size: 12px;
+    list-style: square; } }
+
+@mixin rounded-top {
+  $radius: 10px;
+
+  border-radius: $radius;
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+}
+
+@font-face {
+  font-family: DoulosSILW;
+  src: url(DoulosSIL-R.woff);
+}
+
+div#transcriptionguide{
+
+    @include rounded-top;
+
+    width: 300px;
+    position: fixed;
+    top: 150px;
+    left: 900px;
+    background: #9cf;
+    @media screen and (max-device-width: 480px){
+        display: none;
+    }
+    li{
+        list-style-type: none;
+    }
+    h3{
+        text-align: center;
+        margin: 3px;
+    }
+    .ipa{
+        margin-left: 0px;
+    }
+    .ipa.ipachar{
+        font-family: DoulosSILW, sans-serif;
+    }
+    .practicalorth{
+        position: absolute;
+        left: 220px;
+    }
+}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,85 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Token:</b>
+  <%= @lexeme.token %>
+</p>
+
+<p>
+  <b>Gloss:</b>
+  <%= @lexeme.gloss %>
+</p>
+
+<p>
+  <b>Pos:</b>
+  <%= @lexeme.pos %>
+</p>
+
+<p>
+  <b>Root:</b>
+  <%= @lexeme.root %>
+</p>
+
+<p>
+  <b>Sgnounclassmorpheme:</b>
+  <%= @lexeme.sgNounClassMorpheme %>
+</p>
+
+<p>
+  <b>Sgnounclassnumber:</b>
+  <%= @lexeme.sgNounClassNumber %>
+</p>
+
+<p>
+  <b>Plnounclassmorpheme:</b>
+  <%= @lexeme.plNounClassMorpheme %>
+</p>
+
+<p>
+  <b>Plnounclassnumber:</b>
+  <%= @lexeme.plNounClassNumber %>
+</p>
+
+<p>
+  <b>Classorgroup:</b>
+  <%= @lexeme.classOrGroup %>
+</p>
+
+<p>
+  <b>Transcription:</b>
+  <%= @lexeme.transcription %>
+</p>
+
+<p>
+  <b>Editdate:</b>
+  <%= @lexeme.editDate %>
+</p>
+
+<p>
+  <b>Sgtranscription:</b>
+  <%= @lexeme.sgTranscription %>
+</p>
+
+<p>
+  <b>Pltranscription:</b>
+  <%= @lexeme.plTranscription %>
+</p>
+
+<p>
+  <b>Inftranscription:</b>
+  <%= @lexeme.infTranscription %>
+</p>
+
+<p>
+  <b>Additionalforms:</b>
+  <%= @lexeme.additionalForms %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%= @lexeme.notes %>
+</p>
+
+
+<%= link_to 'Edit', edit_lexeme_path(@lexeme) %> |
+<%= link_to 'Back', lexemes_path %>

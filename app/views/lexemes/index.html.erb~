@@ -1,0 +1,53 @@
+<h1>Listing lexemes</h1>
+
+<table>
+  <tr>
+    <th>Token</th>
+    <th>Gloss</th>
+    <th>P.O.S</th>
+    <th>Root</th>
+    <th>Sg. Noun Class</th>
+    <!--<th>Sg. Noun Class #</th>-->
+    <th>Pl. Noun Class</th>
+    <!--<th>Pl. Noun Class #</th>-->
+    <th>Class/Group</th>
+    <th>Transcription</th>
+    <th>Date</th>
+    <th>Sg. Transcription</th>
+    <th>Pl. Transcription</th>
+    <th>Inf.Transcription</th>
+    <th>Additionalforms</th>
+    <th>Notes</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @lexemes.each do |lexeme| %>
+  <tr>
+    <td><%= lexeme.token %></td>
+    <td><%= lexeme.gloss %></td>
+    <td><%= lexeme.pos %></td>
+    <td><%= lexeme.root %></td>
+    <td><%= lexeme.sgNounClassMorpheme %></td>
+    <td><%= lexeme.sgNounClassNumber %></td>
+    <td><%= lexeme.plNounClassMorphem %></td>
+    <td><%= lexeme.plNounClassNumber %></td>
+    <td><%= lexeme.classOrGroup %></td>
+    <td><%= lexeme.transcription %></td>
+    <td><%= lexeme.editDate %></td>
+    <td><%= lexeme.sgTranscription %></td>
+    <td><%= lexeme.plTranscription %></td>
+    <td><%= lexeme.infTranscription %></td>
+    <td><%= lexeme.additionalForms %></td>
+    <td><%= lexeme.notes %></td>
+    <td><%= link_to 'Show', lexeme %></td>
+    <td><%= link_to 'Edit', edit_lexeme_path(lexeme) %></td>
+    <td><%= link_to 'Destroy', lexeme, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Lexeme', new_lexeme_path %>

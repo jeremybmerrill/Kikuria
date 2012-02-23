@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kikuria</title>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<%= yield %>
+
+<div id="transcriptionguide">
+  <h3>Practical Orthography</h3>
+<ul>
+  <li><span class="ipa">bilabial fricative <span class="ipachar">β</span></span><span class="practicalorth">b</span></li>
+  <li><span class="ipa">velar fricative <span class="ipachar">ɣ</span></span><span class="practicalorth">g</span></li>
+  <li><span class="ipa">tap/flap <span class="ipachar">ɾ</span></span><span class="practicalorth">r</span></li>
+  <li><span class="ipa">trilled <span class="ipachar">r</span></span><span class="practicalorth">R, rr</span></li>
+  <li><span class="ipa">palatal affricate <span class="ipachar">t͡ʃ</span></span><span class="practicalorth">c, ch</span></li>
+  <li><span class="ipa">palatal nasal <span class="ipachar">ɲ</span></span><span class="practicalorth">9, ñ, ny</span></li>
+  <li><span class="ipa">velar nasal <span class="ipachar">ŋ</span></span><span class="practicalorth">ng', N</span></li>
+  <li><span class="ipa">palatal glide <span class="ipachar">j</span></span><span class="practicalorth">y</span></li>
+  <li><span class="ipa">front high -ATR vowel <span class="ipachar">ɪ</span></span><span class="practicalorth">I</span></li>
+  <li><span class="ipa">back high -ATR vowel <span class="ipachar">ʊ</span></span><span class="practicalorth">U</span></li>
+  <li><span class="ipa">front mid -ATR vowel <span class="ipachar">ɛ</span></span><span class="practicalorth">E</span></li>
+  <li><span class="ipa">back mid -ATR vowel <span class="ipachar">ɔ</span></span><span class="practicalorth">O</span></li>
+</ul>
+</div>
+
+</body>
+</html>

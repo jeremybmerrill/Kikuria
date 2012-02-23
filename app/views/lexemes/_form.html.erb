@@ -1,0 +1,82 @@
+<%= form_for(@lexeme) do |f| %>
+  <% if @lexeme.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@lexeme.errors.count, "error") %> prohibited this lexeme from being saved:</h2>
+
+      <ul>
+      <% @lexeme.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="grouping">
+      <div class="field token">
+        <%= f.label :token %><br />
+        <%= f.text_field :token %>
+      </div>
+      <div class="field bigtoken">
+        <%= f.label :gloss %><br />
+        <%= f.text_field :gloss %>
+      </div>
+      <div class="field">
+        <%= f.label :pos, "Part of Speech" %><br />
+        <%= f.select(:pos, options_for_select([["Noun","n"], ["Verb","v"],["Adjective","adj"],["Adverb","adv"],["Pronoun","pron"],["Preposition","prep"],])) %>
+      </div>
+      <div class="field">
+        <%= f.label :classOrGroup, "Was this in class or in small groups?" %><br />
+        <%= f.select(:pos, options_for_select([["Group","g"], ["Class","c"],])) %>
+      </div>
+  </div>
+  <div class="grouping">
+    <div class="field token">
+      <%= f.label :root %><br />
+      <%= f.text_field :root %>
+    </div>
+    <div class="field smalltoken">
+      <%= f.label :sgNounClassMorpheme, "Singular noun class morpheme" %><br />
+      <%= f.text_field :sgNounClassMorpheme %>
+    </div>
+    <div class="field" style="display: none;">
+      <%= f.label :sgNounClassNumber %><br />
+      <%= f.text_field :sgNounClassNumber %>
+    </div>
+    <div class="field smalltoken">
+      <%= f.label :plNounClassMorpheme, "Plural noun class morpheme" %><br />
+      <%= f.text_field :plNounClassMorpheme %>
+    </div>
+    <div class="field" style="display: none;">
+      <%= f.label :plNounClassNumber %><br />
+      <%= f.text_field :plNounClassNumber %>
+    </div>
+  </div>
+  <div class="grouping">
+    <div class="field token">
+      <%= f.label :transcription %><br />
+      <%= f.text_field :transcription %>
+    </div>
+    <div class="field token"> <!-- eventually, based on POS selection, hide/show these -->
+      <%= f.label :sgTranscription, "Singular Transcription" %><br />
+      <%= f.text_field :sgTranscription %>
+    </div> 
+    <div class="field token">
+      <%= f.label :plTranscription, "Plural Transcription" %><br />
+      <%= f.text_field :plTranscription %>
+    </div>
+    <div class="field token">
+      <%= f.label :infTranscription, "Infinitive Transcription" %><br />
+      <%= f.text_field :infTranscription %>
+    </div>
+  </div>
+  <div class="field bigtext">
+    <%= f.label :additionalForms, "Additional Forms (comma separated)" %><br />
+    <%= f.text_area :additionalForms %>
+  </div>
+  <div class="field bigtext">
+    <%= f.label :notes, "Any notes." %><br />
+    <%= f.text_area :notes %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

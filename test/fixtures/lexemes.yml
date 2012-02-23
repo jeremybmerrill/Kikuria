@@ -1,0 +1,37 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  token: MyString
+  gloss: MyString
+  pos: MyString
+  root: MyString
+  sgNounClassMorpheme: MyString
+  sgNounClassNumber: 
+  plNounClassMorphem: MyString
+  plNounClassNumber: 
+  classOrGroup: MyString
+  transcription: MyString
+  editDate: 2012-02-21 18:08:28
+  sgTranscription: MyString
+  plTranscription: MyString
+  infTranscription: MyString
+  additionalForms: MyText
+  notes: MyText
+
+two:
+  token: MyString
+  gloss: MyString
+  pos: MyString
+  root: MyString
+  sgNounClassMorpheme: MyString
+  sgNounClassNumber: 
+  plNounClassMorphem: MyString
+  plNounClassNumber: 
+  classOrGroup: MyString
+  transcription: MyString
+  editDate: 2012-02-21 18:08:28
+  sgTranscription: MyString
+  plTranscription: MyString
+  infTranscription: MyString
+  additionalForms: MyText
+  notes: MyText
