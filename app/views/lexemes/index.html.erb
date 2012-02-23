@@ -11,11 +11,11 @@
     <th>Pl. Noun Class</th>
     <!--<th>Pl. Noun Class #</th>-->
     <th>Class/Group</th>
-    <th>Transcription</th>
+    <th style="display: none;">Transcription</th>
     <th>Date</th>
-    <th>Sg. Transcription</th>
-    <th>Pl. Transcription</th>
-    <th>Inf.Transcription</th>
+    <th style="display: none;">Sg. Transcription</th>
+    <th style="display: none;">Pl. Transcription</th>
+    <th style="display: none;">Inf.Transcription</th>
     <th>Additionalforms</th>
     <th>Notes</th>
     <th></th>
@@ -30,15 +30,15 @@
     <td><%= lexeme.pos %></td>
     <td><%= lexeme.root %></td>
     <td><%= lexeme.sgNounClassMorpheme %></td>
-    <td><%= lexeme.sgNounClassNumber %></td>
+    <!--<td><%= lexeme.sgNounClassNumber %></td>-->
     <td><%= lexeme.plNounClassMorpheme %></td>
-    <td><%= lexeme.plNounClassNumber %></td>
+    <!--<td><%= lexeme.plNounClassNumber %></td>-->
     <td><%= lexeme.classOrGroup %></td>
-    <td><%= lexeme.transcription %></td>
-    <td><%= lexeme.editDate %></td>
-    <td><%= lexeme.sgTranscription %></td>
-    <td><%= lexeme.plTranscription %></td>
-    <td><%= lexeme.infTranscription %></td>
+    <td style="display: none;"><%= lexeme.transcription %></td>
+    <td><%= lexeme.editDate.strftime("%m/%d/%Y") %></td>
+    <td style="display: none;"><%= lexeme.sgTranscription %></td>
+    <td style="display: none;"><%= lexeme.plTranscription %></td>
+    <td style="display: none;"><%= lexeme.infTranscription %></td>
     <td><%= lexeme.additionalForms %></td>
     <td><%= lexeme.notes %></td>
     <td><%= link_to 'Show', lexeme %></td>
