@@ -2,22 +2,21 @@
 
 <table>
   <tr>
-    <th>Token</th>
+    <th>Root</th>
+    <th>Sg. NC</th>
+    <th>Pl. NC</th>
+    <th>Sg. Token</th>
+    <th>Pl. Token</th>
     <th>Gloss</th>
     <th>P.O.S</th>
-    <th>Root</th>
-    <th>Sg. Noun Class</th>
+    <th style="display: none;">Token</th>
     <!--<th>Sg. Noun Class #</th>-->
-    <th>Pl. Noun Class</th>
     <!--<th>Pl. Noun Class #</th>-->
-    <th>Class/Group</th>
-    <th>Transcription</th>
+    <th>Class/ Group</th>
+    <th style="display: none;">Transcription</th>
     <th>Date</th>
-    <th>Sg. Transcription</th>
-    <th>Pl. Transcription</th>
-    <th>Inf.Transcription</th>
-    <th>Additionalforms</th>
-    <th>Notes</th>
+    <th style="display: none;">Inf.Transcription</th>
+    <th>Owner</th>
     <th></th>
     <th></th>
     <th></th>
@@ -25,22 +24,22 @@
 
 <% @lexemes.each do |lexeme| %>
   <tr>
-    <td><%= lexeme.token %></td>
-    <td><%= lexeme.gloss %></td>
-    <td><%= lexeme.pos %></td>
     <td><%= lexeme.root %></td>
     <td><%= lexeme.sgNounClassMorpheme %></td>
-    <td><%= lexeme.sgNounClassNumber %></td>
-    <td><%= lexeme.plNounClassMorphem %></td>
-    <td><%= lexeme.plNounClassNumber %></td>
-    <td><%= lexeme.classOrGroup %></td>
-    <td><%= lexeme.transcription %></td>
-    <td><%= lexeme.editDate %></td>
+    <td><%= lexeme.plNounClassMorpheme %></td>
     <td><%= lexeme.sgTranscription %></td>
     <td><%= lexeme.plTranscription %></td>
-    <td><%= lexeme.infTranscription %></td>
-    <td><%= lexeme.additionalForms %></td>
-    <td><%= lexeme.notes %></td>
+    <td><%= lexeme.gloss %></td>
+    <td><%= lexeme.pos %></td>
+    <td  style="display: none;"><%= lexeme.token %></td>
+    <!--<td><%= lexeme.sgNounClassNumber %></td>-->
+    <!--<td><%= lexeme.plNounClassNumber %></td>-->
+    <td><%= lexeme.classOrGroup %></td>
+    <td style="display: none;"><%= lexeme.transcription %></td>
+    <td><%= lexeme.editDate.strftime("%m/%d/%Y") %></td>
+
+    <td style="display: none;"><%= lexeme.infTranscription %></td>
+    <td><%= lexeme.user.email if lexeme.user %></td>
     <td><%= link_to 'Show', lexeme %></td>
     <td><%= link_to 'Edit', edit_lexeme_path(lexeme) %></td>
     <td><%= link_to 'Destroy', lexeme, confirm: 'Are you sure?', method: :delete %></td>

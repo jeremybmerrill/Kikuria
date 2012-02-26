@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <b>Token:</b>
   <%= @lexeme.token %>
@@ -78,6 +76,10 @@
 <p>
   <b>Notes:</b>
   <%= @lexeme.notes %>
+</p>
+<p>
+  <b>Owner:</b>
+  <%= @lexeme.user.email %>
 </p>
 
 

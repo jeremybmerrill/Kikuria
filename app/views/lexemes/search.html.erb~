@@ -4,51 +4,30 @@
 <span id="yousearchedfor">You searched for: <span id="searchterm"><%= @regex %></span></span>
 <table>
     <tr>
-    <th>Token</th>
-    <th>Gloss</th>
-    <th>P.O.S.</th>
     <th>Root</th>
-    <th>Sg. Noun Class</th>
-    <th>Pl. Noun Class</th>
+    <th>Sg. NC</th>
+    <th>Pl. NC</th>
+    <th>Sg. Token</th>
+    <th>Pl. Token</th>
+    <th>Gloss</th>
+    <th>POS</th>
+    <th style="display: none;">Token</th>
+    <th>Owner</th>
     <th></th>
     <th></th>
     <th></th>
     </tr>
     <% @matches.each do |lexeme| %>
     <tr>
-    <td><%= lexeme.token %></td>
-    <td><%= lexeme.gloss %></td>
-    <td><%= lexeme.pos %></td>
     <td><%= lexeme.root %></td>
     <td><%= lexeme.sgNounClassMorpheme %></td>
     <td><%= lexeme.plNounClassMorpheme %></td>
-    <td><%= link_to 'Show', lexeme %></td>
-    <td><%= link_to 'Edit', edit_lexeme_path(lexeme) %></td>
-    <td><%= link_to 'Destroy', lexeme, confirm: 'Are you sure?', method: :delete %></td>
-    </tr>
-    <% end %>
-</table>
-<h3>Non Matches</h3>
-<table>
-    <tr>
-    <th>Token</th>
-    <th>Gloss</th>
-    <th>P.O.S.</th>
-    <th>Root</th>
-    <th>Sg. Noun Class</th>
-    <th>Pl. Noun Class</th>
-    <th></th>
-    <th></th>
-    <th></th>
-    </tr>
-    <% @nonmatches.each do |lexeme| %>
-    <tr>
-    <td><%= lexeme.token %></td>
+    <td><%= lexeme.sgTranscription %></td>
+    <td><%= lexeme.plTranscription %></td>
     <td><%= lexeme.gloss %></td>
     <td><%= lexeme.pos %></td>
-    <td><%= lexeme.root %></td>
-    <td><%= lexeme.sgNounClassMorpheme %></td>
-    <td><%= lexeme.plNounClassMorpheme %></td>
+    <td style="display: none;"><%= lexeme.token %></td>
+    <td><%= lexeme.user.email %></td>
     <td><%= link_to 'Show', lexeme %></td>
     <td><%= link_to 'Edit', edit_lexeme_path(lexeme) %></td>
     <td><%= link_to 'Destroy', lexeme, confirm: 'Are you sure?', method: :delete %></td>

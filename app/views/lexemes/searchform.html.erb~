@@ -18,7 +18,7 @@
     ["Notes", :notes],] %>
   <%= select_tag(:field, options_for_select(fields)) %>
 
-  <span>Type what you want to search for. Select the field you want to search (e.g. just the gloss, or everything, or whatever). You can also use the V and C placeholders for vowels and consonants, respectively</span>
+  <span></span>
 <% end %>
 
 

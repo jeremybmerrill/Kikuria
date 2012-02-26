@@ -98,6 +98,15 @@ div#content{
     width: 60%;
     margin-left: 8%;
 }
+div#noticebar{
+    width: 100%;
+    background: #74F774;
+    height: 20px;
+    color: black;
+    span{
+        margin: 2px 5px;
+    }
+}
 div#transcriptionguide{
 
     @include rounded-top;
@@ -118,22 +127,15 @@ div#transcriptionguide{
         margin: 3px;
     }
     .ipa{
-        margin-left: 0px;
+        margin-left: -10%;
     }
     .ipa.ipachar{
         font-family: DoulosSILW, sans-serif;
     }
     .practicalorth{
         position: absolute;
-        left: 220px;
+        left: 75%;
     }
 }
-
-
-
-
-
-
-
 
 

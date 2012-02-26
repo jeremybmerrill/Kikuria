@@ -1,4 +1,6 @@
 Kikuria::Application.routes.draw do
+  devise_for :users
+
   resources :lexemes do
     collection do
       get 'search'

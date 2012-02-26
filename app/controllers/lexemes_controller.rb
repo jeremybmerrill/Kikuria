@@ -1,4 +1,6 @@
 class LexemesController < ApplicationController
+  before_filter :authenticate_user!, :only => [:create, :edit, :update, :destroy, :new]
+
   # GET /lexemes
   # GET /lexemes.json
   def index
@@ -26,11 +28,22 @@ class LexemesController < ApplicationController
     @matches = []
     #@nonmatches = []
     regex = params[:regex]
-    field = params[:field]
+    regex = regex.gsub("C", "[bcdghjklmnN9rRstwy]")
+    regex = regex.gsub("V", "[aeiouEIOU]")
+    regex = Regexp.new(regex)
+
+    fields = [params[:field]]
+    if fields == ['all']
+        fields = ['sgNounClassMorpheme', 'plNounClassMorpheme', 'root', 'sgTranscription', 'plTranscription']
+    end
+    
     Lexeme.all.each do |lexeme|
-        @matches << lexeme if Regexp.new(regex).match(lexeme[field])
+        fields.each do |field|
+            @matches << lexeme if regex.match(lexeme[field]) and !@matches.include?(lexeme)
+        end
         #@nonmatches << lexeme unless Regexp.new(params[:regex]).match(lexeme.token)
     end
+    
     respond_to do |format|
       format.html # search.html.erb
       format.json { render json: @lexeme }
@@ -56,8 +69,18 @@ class LexemesController < ApplicationController
   # POST /lexemes
   # POST /lexemes.json
   def create
+
     @lexeme = Lexeme.new(params[:lexeme])
+
     @lexeme.editDate = Time.now
+    
+    [:root, :sgNounClassMorpheme, :plNounClassMorpheme].each do |item|
+        @lexeme[item] = @lexeme.toOrth(@lexeme[item])
+    end
+    @lexeme.sgTranscription = @lexeme.sgNounClassMorpheme + @lexeme.root
+    @lexeme.plTranscription = @lexeme.plNounClassMorpheme + @lexeme.root
+
+    current_user.lexemes << @lexeme
 
     respond_to do |format|
       if @lexeme.save

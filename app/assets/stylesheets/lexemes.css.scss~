@@ -1,7 +1,7 @@
 // Place all the styles related to the lexemes controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-#new_lexeme{
+#new_lexeme, #edit_lexeme{
     .field{
         float: left;
         margin: 0px 5px;
@@ -29,6 +29,9 @@
     }
     .grouping{
         clear: left;
+    }
+    .actions{
+        clear: both;
     }
 }
 
