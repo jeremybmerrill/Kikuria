@@ -104,8 +104,8 @@ class LexemesController < ApplicationController
     plNounClassMorpheme = updated_lexeme[:plNounClassMorpheme] or @lexeme.plNounClassMorpheme
     root = updated_lexeme[:root] or @lexeme.root
     
-    updated_lexeme[:sgTranscription] = sgNounClassMorpheme + root
-    updated_lexeme[:plTranscription] = plNounClassMorpheme + root
+    updated_lexeme[:sgTranscription] = sgNounClassMorpheme + root unless (sgNounClassMorpheme.nil? or sgNounClassMorpheme == "")
+    updated_lexeme[:plTranscription] = plNounClassMorpheme + root unless (plNounClassMorpheme.nil? or plNounClassMorpheme == "")
 
     respond_to do |format|
       if @lexeme.update_attributes(updated_lexeme)
