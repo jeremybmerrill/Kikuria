@@ -97,12 +97,14 @@ class LexemesController < ApplicationController
   # PUT /lexemes/1.json
   def update
     @lexeme = Lexeme.find(params[:id])
+    
+    updated_lexeme = params[:lexeme]
 
-    @lexeme.sgTranscription = @lexeme.sgNounClassMorpheme + @lexeme.root
-    @lexeme.plTranscription = @lexeme.plNounClassMorpheme + @lexeme.root
+    updated_lexeme[:sgTranscription] = @lexeme.sgNounClassMorpheme + @lexeme.root
+    updated_lexeme[:plTranscription] = @lexeme.plNounClassMorpheme + @lexeme.root
 
     respond_to do |format|
-      if @lexeme.update_attributes(params[:lexeme])
+      if @lexeme.update_attributes(updated_lexeme)
         format.html { redirect_to @lexeme, notice: 'Lexeme was successfully updated.' }
         format.json { head :ok }
       else
