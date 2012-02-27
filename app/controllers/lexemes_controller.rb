@@ -98,6 +98,9 @@ class LexemesController < ApplicationController
   def update
     @lexeme = Lexeme.find(params[:id])
 
+    @lexeme.sgTranscription = @lexeme.sgNounClassMorpheme + @lexeme.root
+    @lexeme.plTranscription = @lexeme.plNounClassMorpheme + @lexeme.root
+
     respond_to do |format|
       if @lexeme.update_attributes(params[:lexeme])
         format.html { redirect_to @lexeme, notice: 'Lexeme was successfully updated.' }
