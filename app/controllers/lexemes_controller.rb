@@ -100,8 +100,12 @@ class LexemesController < ApplicationController
     
     updated_lexeme = params[:lexeme]
 
-    updated_lexeme[:sgTranscription] = @lexeme.sgNounClassMorpheme + @lexeme.root
-    updated_lexeme[:plTranscription] = @lexeme.plNounClassMorpheme + @lexeme.root
+    sgNounClassMorpheme = updated_lexeme[:sgNounClassMorpheme] or @lexeme.sgNounClassMorpheme
+    plNounClassMorpheme = updated_lexeme[:plNounClassMorpheme] or @lexeme.plNounClassMorpheme
+    root = updated_lexeme[:root] or @lexeme.root
+    
+    updated_lexeme[:sgTranscription] = sgNounClassMorpheme + root
+    updated_lexeme[:plTranscription] = plNounClassMorpheme + root
 
     respond_to do |format|
       if @lexeme.update_attributes(updated_lexeme)
