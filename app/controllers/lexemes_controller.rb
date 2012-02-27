@@ -84,7 +84,7 @@ class LexemesController < ApplicationController
 
     respond_to do |format|
       if @lexeme.save
-        format.html { redirect_to @lexeme, notice: 'Lexeme was successfully created.' }
+        format.html { redirect_to lexemes_path, notice: 'Lexeme was successfully created.' }
         format.json { render json: @lexeme, status: :created, location: @lexeme }
       else
         format.html { render action: "new" }
