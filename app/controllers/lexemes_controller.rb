@@ -77,8 +77,8 @@ class LexemesController < ApplicationController
     [:root, :sgNounClassMorpheme, :plNounClassMorpheme].each do |item|
         @lexeme[item] = @lexeme.toOrth(@lexeme[item])
     end
-    @lexeme.sgTranscription = @lexeme.sgNounClassMorpheme + @lexeme.root
-    @lexeme.plTranscription = @lexeme.plNounClassMorpheme + @lexeme.root
+    @lexeme.sgTranscription = @lexeme.sgNounClassMorpheme + @lexeme.root unless (@lexeme.sgNounClassMorpheme.nil? or @lexeme.sgNounClassMorpheme == "")
+    @lexeme.plTranscription = @lexeme.plNounClassMorpheme + @lexeme.root unless (@lexeme.plNounClassMorpheme.nil? or @lexeme.plNounClassMorpheme == "")
 
     current_user.lexemes << @lexeme
 
