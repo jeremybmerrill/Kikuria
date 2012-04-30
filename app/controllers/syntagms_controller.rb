@@ -31,7 +31,7 @@ class SyntagmsController < ApplicationController
   def export_syntagms_csv
     syntagms = Syntagm.find(:all)
     stream_csv do |csv|
-      csv << [ "token", "gloss", "grammatical", "classOrGroup", "notes", "editDate", t.integer "user_id", "created_at", "updated_at"]
+      csv << [ "token", "gloss", "grammatical", "classOrGroup", "notes", "editDate", "user_id", "created_at", "updated_at"]
       syntagms.each do |s|
         csv << [s.token, s.gloss, s.grammatical, s.classOrGroup, s.notes, s.editDate, s.user_id, s.created_at, s.updated_at]
       end
