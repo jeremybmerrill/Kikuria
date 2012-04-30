@@ -1,8 +1,8 @@
 <h1>Listing lexemes</h1>
 <%= link_to 'New Lexeme', new_lexeme_path %>
 <br />
-<table>
-  <tr>
+<table id="lexemes_index" class="lexemestable">
+    <thead>
     <th>Root</th>
     <th>Sg. NC</th>
     <th>Pl. NC</th>
@@ -17,11 +17,11 @@
     <th style="display: none;">Transcription</th>
     <th>Date</th>
     <th style="display: none;">Inf.Transcription</th>
-    <th>Owner</th>
+    <th>Submitter</th>
     <th></th>
     <th></th>
     <th></th>
-  </tr>
+  </thead>
 
 <% @lexemes.each do |lexeme| %>
   <tr>
@@ -40,7 +40,7 @@
     <td><%= lexeme.editDate.strftime("%m/%d/%Y") %></td>
 
     <td style="display: none;"><%= lexeme.infTranscription %></td>
-    <td><%= lexeme.user.email if lexeme.user %></td>
+    <td><%= lexeme.user.displayname or lexeme.user.email %></td>
     <td><%= link_to 'Show', lexeme %></td>
     <td><%= link_to 'Edit', edit_lexeme_path(lexeme) %></td>
     <td><%= link_to 'Destroy', lexeme, confirm: 'Are you sure?', method: :delete %></td>

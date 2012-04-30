@@ -1,0 +1,18 @@
+# encoding: UTF-8
+
+<p>
+  <b>Commenter:</b>
+  <%= comment.user.email %> said at <%= comment.created_at %>:
+</p>
+ 
+<p>
+  <b>Comment:</b>
+  <%= comment.body %>
+</p>
+
+<% if can? :destroy, comment %>
+<p>
+  <%= link_to 'Destroy Comment', [comment.commentable, comment] %>
+</p>
+<% end %>
+

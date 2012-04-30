@@ -1,5 +1,9 @@
+# encoding: UTF-8
+
 class LexemesController < ApplicationController
-  before_filter :authenticate_user!, :only => [:create, :edit, :update, :destroy, :new]
+  #before_filter :authenticate_user!, :only => [:create, :edit, :update, :destroy, :new]
+  load_and_authorize_resource
+
 
   # GET /lexemes
   # GET /lexemes.json
@@ -23,10 +27,43 @@ class LexemesController < ApplicationController
     end
   end
 
+  # adapted from http://oldwiki.rubyonrails.org/rails/pages/HowtoExportDataAsCSV
+  def export_lexemes_csv
+    lexemes = Lexeme.find(:all)
+    stream_csv do |csv|
+      csv << ["token","gloss","pos","root","sgNounClassMorpheme", "sgNounClassNumber", "plNounClassNumber", "classOrGroup", "transcription", "editDate", "sgTranscription", "plTranscription","infTranscription", "additionalForms", "notes", "created_at", "updated_at", "plNounClassMorpheme", "user_id", "basicWord"]
+      lexemes.each do |l|
+        csv << [l.token, l.gloss, l.pos, l.root, l.sgNounClassMorpheme, l.sgNounClassNumber, l.plNounClassNumber, l.classOrGroup, l.transcription, l.editDate, l.sgTranscription, l.plTranscription, l.infTranscription, l.additionalForms, l.notes, l.created_at, l.updated_at, l.plNounClassMorpheme, l.user_id, l.basicWord]
+      end
+    end
+  end
+
+  private
+    def stream_csv
+       filename = params[:action] + ".csv"    
+	
+       #this is required if you want this to work with IE		
+       if request.env['HTTP_USER_AGENT'] =~ /msie/i
+         headers['Pragma'] = 'public'
+         headers["Content-type"] = "text/plain"
+         headers['Cache-Control'] = 'no-cache, must-revalidate, post-check=0, pre-check=0'
+         headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""
+         headers['Expires'] = "0"
+       else
+         headers["Content-Type"] ||= 'text/csv'
+         headers["Content-Disposition"] = "attachment; filename=\"#{filename}\"" 
+       end
+ 
+      render :text => Proc.new { |response, output|
+        csv = FasterCSV.new(output, :row_sep => "\r\n") 
+        yield csv
+      }
+    end
+
+
   def search
     #@lexeme = Lexeme.find(params[:id])
     @matches = []
-    #@nonmatches = []
     regex = params[:regex]
     regex = regex.gsub("C", "[bcdghjklmnN9rRstwy]")
     regex = regex.gsub("V", "[aeiouEIOU]")
@@ -46,7 +83,7 @@ class LexemesController < ApplicationController
     
     respond_to do |format|
       format.html # search.html.erb
-      format.json { render json: @lexeme }
+      format.json { render json: @matches }
     end
   end
 

@@ -1,0 +1,81 @@
+<h1>Oh hey! This here's a database of Kikuria words and phrases!</h1>
+<p>Kikuria is a Bantu (E.10 or E.46) language spoken in Kenya and Tanzania. The data contained in this database was gathered from our consultant in January - April 2012 in Claremont, CA during the course of a Field Methods class at Pomona College.
+
+
+
+<div id="search">
+    <div id="searchLexemes">
+    <h2>Search Lexical Items</h2>
+        <%= form_tag("/lexemes/search", :method => "get") do %>
+          <%= label_tag(:regex, "Regex search:") %>
+          <%= text_field_tag(:regex) %>
+          <%= submit_tag("Search") %>
+          <% fields = [
+            ["All", :all],
+            #["Token", :token],
+            ["Gloss", :gloss],
+            ["P.O.S.", :pos],
+            ["Root", :root],
+            ["Sg. Noun Class Morpheme", :sgNounClassMorpheme],
+            ["Pl. Noun Class Morpheme", :plNounClassMorpheme],
+            ["Class/Group", :classOrGroup],
+            ["User", :user],
+            ["Date", :editDate],
+            ["Additional Forms", :additionalForms],
+            ["Notes", :notes],] %>
+          <%= select_tag(:field, options_for_select(fields)) %>
+
+          <span>Type what you want to search for. Select the field you want to search (e.g. just the gloss, or everything, or whatever). You can also use the V and C placeholders for vowels and consonants, respectively</span>
+        <% end %>
+
+    </div>
+    <div id="searchSyntagms">
+        <%= form_tag("/lexemes/search", :method => "get") do %>
+          <%= label_tag(:regex, "Regex search:") %>
+          <%= text_field_tag(:regex) %>
+          <%= submit_tag("Search") %>
+          <% fields = [
+            ["All", :all],
+            #["Token", :token],
+            ["Gloss", :gloss],
+            ["P.O.S.", :pos],
+            ["Root", :root],
+            ["Sg. Noun Class Morpheme", :sgNounClassMorpheme],
+            ["Pl. Noun Class Morpheme", :plNounClassMorpheme],
+            ["Class/Group", :classOrGroup],
+            ["User", :user],
+            ["Date", :editDate],
+            ["Additional Forms", :additionalForms],
+            ["Notes", :notes],] %>
+          <%= select_tag(:field, options_for_select(fields)) %>
+
+        <% end %>
+
+    </div>
+<div>
+<div id="latestcontainer">
+    <div id="latestlexemes">
+
+    </div>
+    <div id="latestsyntagms">
+
+    </div>
+</div>
+<p>Interoperability MORE HERE</p>
+
+<p>This database is Jeremy B. Merrill's final project for that course; the code is open-source (license) and available on <a href="http://github.com/jeremybmerrill/kikuria">Github</a>. data contained in this database is also open-source, under a Creative Commons 3.0 BY-NC-SA (and feel free to write if you want one of these terms waived).</p>
+
+<div id="export">
+The internet is a scary place. Things disappear. It's important that language documentation be retained. This is an important concern discussed in SOMEWHERE. So, download this database! (As comma-separated values, including all metadata, which can be opened in Excel.)
+    <table><tr>
+        <td><a href="">All Lexical Items</a></td>
+        <td><a href="">All Phrases</a></td>
+        <td><a href=""> </a></td>
+    </tr></table>
+</p>
+
+<ul id="references">
+    <li>http://www.ethnologue.com/%5C%5C/15/show_language.asp?code=kuj</li>
+    <li>http://linguistics.berkeley.edu/CBOLD/Lgs/LgsbyGN.html</li>
+</ul>
+

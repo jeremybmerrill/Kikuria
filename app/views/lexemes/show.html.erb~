@@ -78,10 +78,17 @@
   <%= @lexeme.notes %>
 </p>
 <p>
-  <b>Owner:</b>
-  <%= @lexeme.user %>
+  <b>Submitter:</b>
+  <%= @lexeme.user.email %>
 </p>
 
 
 <%= link_to 'Edit', edit_lexeme_path(@lexeme) %> |
 <%= link_to 'Back', lexemes_path %>
+
+<h2>Comments</h2>
+<%= render @lexeme.comments %>
+<% if can? :create, Comment %>
+  <h2>Add a comment:</h2>
+  <%= render "comments/formlex" %>
+<% end %>

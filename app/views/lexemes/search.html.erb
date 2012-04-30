@@ -2,8 +2,9 @@
 
 <h3>Matches</h3>
 <span id="yousearchedfor">You searched for: <span id="searchterm"><%= @regex %></span></span>
-<table>
-    <tr>
+<% unless @matches.nil? or @matches.size == 0 %>
+<table id="lexemes_searchresults" class="lexemestable">
+    <thead>
     <th>Root</th>
     <th>Sg. NC</th>
     <th>Pl. NC</th>
@@ -16,7 +17,7 @@
     <th></th>
     <th></th>
     <th></th>
-    </tr>
+    </thead>
     <% @matches.each do |lexeme| %>
     <tr>
     <td><%= lexeme.root %></td>
@@ -34,3 +35,6 @@
     </tr>
     <% end %>
 </table>
+<% else %>
+    <span> There's nothing here!</span>
+<% end %>

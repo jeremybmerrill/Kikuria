@@ -1,14 +1,15 @@
 <h1>Listing lexemes</h1>
-
-<table>
-  <tr>
+<%= link_to 'New Lexeme', new_lexeme_path %>
+<br />
+<table id="lexemes_index" class="lexemestable">
+    <thead>
     <th>Root</th>
     <th>Sg. NC</th>
     <th>Pl. NC</th>
     <th>Sg. Token</th>
     <th>Pl. Token</th>
     <th>Gloss</th>
-    <th>P.O.S</th>
+    <th>POS</th>
     <th style="display: none;">Token</th>
     <!--<th>Sg. Noun Class #</th>-->
     <!--<th>Pl. Noun Class #</th>-->
@@ -16,11 +17,11 @@
     <th style="display: none;">Transcription</th>
     <th>Date</th>
     <th style="display: none;">Inf.Transcription</th>
-    <th>Owner</th>
+    <th>Submitter</th>
     <th></th>
     <th></th>
     <th></th>
-  </tr>
+  </thead>
 
 <% @lexemes.each do |lexeme| %>
   <tr>
@@ -39,7 +40,7 @@
     <td><%= lexeme.editDate.strftime("%m/%d/%Y") %></td>
 
     <td style="display: none;"><%= lexeme.infTranscription %></td>
-    <td><%= lexeme.user.email if lexeme.user %></td>
+    <td><%= syntagm.user.displayname or syntagm.user.email %></td>
     <td><%= link_to 'Show', lexeme %></td>
     <td><%= link_to 'Edit', edit_lexeme_path(lexeme) %></td>
     <td><%= link_to 'Destroy', lexeme, confirm: 'Are you sure?', method: :delete %></td>

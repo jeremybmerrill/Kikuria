@@ -5,6 +5,8 @@
 class Lexeme < ActiveRecord::Base
   belongs_to :user
 
+  has_many :comments, :as => :commentable
+
   validates :root, :presence => true
   validates :gloss, :presence => true
 

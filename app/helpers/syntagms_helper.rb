@@ -1,0 +1,2 @@
+module SyntagmsHelper
+end

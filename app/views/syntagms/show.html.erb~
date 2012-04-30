@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Token:</b>
+  <%= @syntagm.token %>
+</p>
+
+<p>
+  <b>Gloss:</b>
+  <%= @syntagm.gloss %>
+</p>
+
+<p>
+  <b>Grammatical:</b>
+  <%= @syntagm.grammatical %>
+</p>
+
+<p>
+  <b>Classorgroup:</b>
+  <%= @syntagm.classOrGroup %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%= @syntagm.notes %>
+</p>
+
+<p>
+  <b>Editdate:</b>
+  <%= @syntagm.editDate %>
+</p>
+
+<p>
+  <b>Submitter:</b>
+  <%= @syntagm.user_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_syntagm_path(@syntagm) %> |
+<%= link_to 'Back', syntagms_path %>
+
+<h2>Comments</h2>
+<%= render @syntagm.comments %>
+<% if can? :create, Comment %>
+  <h2>Add a comment:</h2>
+  <%= render "comments/formsyn" %>
+<% end %>

@@ -1,0 +1,45 @@
+<%= form_for(@syntagm) do |f| %>
+  <% if @syntagm.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@syntagm.errors.count, "error") %> prohibited this syntagm from being saved:</h2>
+
+      <ul>
+      <% @syntagm.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :token %><br />
+    <%= f.text_field :token %>
+  </div>
+  <div class="field">
+    <%= f.label :gloss %><br />
+    <%= f.text_field :gloss %>
+  </div>
+  <div class="field">
+    <%= f.label :grammatical %><br />
+    <%= f.check_box :grammatical %>
+  </div>
+  <div class="field">
+    <%= f.label :classOrGroup %><br />
+    <%= f.text_field :classOrGroup %>
+  </div>
+  <div class="field">
+    <%= f.label :notes %><br />
+    <%= f.text_field :notes %>
+  </div>
+  <div class="field">
+    <%= f.label :editDate %><br />
+    <%= f.datetime_select :editDate %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br />
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

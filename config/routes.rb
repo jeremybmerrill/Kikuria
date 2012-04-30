@@ -1,15 +1,34 @@
 Kikuria::Application.routes.draw do
+  get "static_pages/home"
+
+  get "static_pages/search"
+
+  get "static_pages/help"
+
+  resources :comments
+
+  resources :syntagms
+
   devise_for :users
+  resources  :users, :only => [:show]
 
   resources :lexemes do
     collection do
       get 'search'
       get 'searchform'
     end
+    resources :comments
+  end
+  resources :syntagms do
+    collection do
+      get 'search'
+      get 'searchform'
+    end
+    resources :comments
   end
     
 
-  root :to => "lexemes#index"
+  root :to => "static_pages#home"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
