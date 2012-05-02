@@ -31,6 +31,10 @@
       <%= f.label :root %><br />
       <%= f.text_field :root %>
     </div>
+    <div class="field basicWord">
+      <%= f.label :basicWord, "Is this a basic word? (E.g. Swadesh list word)" %><br />
+      <%= f.check_box :basicWord %>
+    </div>
   </div>
   <div class="grouping">
       <div class="field token" style="display: none;">
@@ -47,7 +51,7 @@
       </div>
       <div class="field">
         <%= f.label :classOrGroup, "Was this in class or in small groups?" %><br />
-        <%= f.select(:pos, options_for_select([["Group","g"], ["Class","c"],])) %>
+        <%= f.select(:classOrGroup, options_for_select([["Group","g"], ["Class","c"],])) %>
       </div>
   </div>
   <div class="grouping" style="display: none;">
@@ -71,6 +75,11 @@
   <div class="field bigtext">
     <%= f.label :additionalForms, "Additional Forms (comma separated)" %><br />
     <%= f.text_area :additionalForms %>
+  </div>
+  <div class="field">
+    <%= label_tag :audio, "Link to Audio File" %><br />
+    <%= select_tag(:audio, Audio.all.collect { |c| [c.id, c.description] }.insert(0,[""])) %>
+    <%= link_to "Add New Audio", new_audio_path, :popup => true %>
   </div>
   <div class="field bigtext">
     <%= f.label :notes, "Any notes." %><br />

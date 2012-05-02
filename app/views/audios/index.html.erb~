@@ -1,0 +1,27 @@
+<h1>Listing audios</h1>
+
+<table>
+  <tr>
+    <th>Description</th>
+    <th>Link</th>
+    <th>Notes</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @audios.each do |audio| %>
+  <tr>
+    <td><%= audio.description %></td>
+    <td><a href="<%= audio.link %>">Location</a></td>
+    <td><%= audio.notes %></td>
+    <td><%= link_to 'Show', audio %></td>
+    <td><%= link_to 'Edit', edit_audio_path(audio) %></td>
+    <td><%= link_to 'Destroy', audio, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Audio', new_audio_path %>

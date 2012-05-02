@@ -1,8 +1,6 @@
-<p id="notice"><%= notice %></p>
-
 <h3>Matches</h3>
 <span id="yousearchedfor">You searched for: <span id="searchterm"><%= @regex %></span></span>
-<% unless @matches.nil? or @matches.size == 0 %>
+<% if !@matches.nil? and @matches.size != 0 %>
 <table id="lexemes_searchresults" class="lexemestable">
     <thead>
     <th>Root</th>

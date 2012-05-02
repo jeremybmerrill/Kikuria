@@ -4,6 +4,7 @@ class LexemesController < ApplicationController
   #before_filter :authenticate_user!, :only => [:create, :edit, :update, :destroy, :new]
   load_and_authorize_resource
 
+  require 'csv'
 
   # GET /lexemes
   # GET /lexemes.json
@@ -27,47 +28,14 @@ class LexemesController < ApplicationController
     end
   end
 
-  # adapted from http://oldwiki.rubyonrails.org/rails/pages/HowtoExportDataAsCSV
-  def export_lexemes_csv
-    lexemes = Lexeme.find(:all)
-    stream_csv do |csv|
-      csv << ["token","gloss","pos","root","sgNounClassMorpheme", "sgNounClassNumber", "plNounClassNumber", "classOrGroup", "transcription", "editDate", "sgTranscription", "plTranscription","infTranscription", "additionalForms", "notes", "created_at", "updated_at", "plNounClassMorpheme", "user_id", "basicWord"]
-      lexemes.each do |l|
-        csv << [l.token, l.gloss, l.pos, l.root, l.sgNounClassMorpheme, l.sgNounClassNumber, l.plNounClassNumber, l.classOrGroup, l.transcription, l.editDate, l.sgTranscription, l.plTranscription, l.infTranscription, l.additionalForms, l.notes, l.created_at, l.updated_at, l.plNounClassMorpheme, l.user_id, l.basicWord]
-      end
-    end
-  end
-
-  private
-    def stream_csv
-       filename = params[:action] + ".csv"    
-	
-       #this is required if you want this to work with IE		
-       if request.env['HTTP_USER_AGENT'] =~ /msie/i
-         headers['Pragma'] = 'public'
-         headers["Content-type"] = "text/plain"
-         headers['Cache-Control'] = 'no-cache, must-revalidate, post-check=0, pre-check=0'
-         headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""
-         headers['Expires'] = "0"
-       else
-         headers["Content-Type"] ||= 'text/csv'
-         headers["Content-Disposition"] = "attachment; filename=\"#{filename}\"" 
-       end
- 
-      render :text => Proc.new { |response, output|
-        csv = FasterCSV.new(output, :row_sep => "\r\n") 
-        yield csv
-      }
-    end
 
 
   def search
-    #@lexeme = Lexeme.find(params[:id])
     @matches = []
     regex = params[:regex]
+    @regex = regex
     regex = regex.gsub("C", "[bcdghjklmnN9rRstwy]")
     regex = regex.gsub("V", "[aeiouEIOU]")
-    regex = Regexp.new(regex)
 
     fields = [params[:field]]
     if fields == ['all']
@@ -75,12 +43,13 @@ class LexemesController < ApplicationController
     end
     
     Lexeme.all.each do |lexeme|
+        regexp = Regexp.new(lexeme.toOrth(regex))
         fields.each do |field|
-            @matches << lexeme if regex.match(lexeme[field]) and !@matches.include?(lexeme)
+            @matches << lexeme if regexp.match(lexeme[field]) and !@matches.include?(lexeme)
         end
         #@nonmatches << lexeme unless Regexp.new(params[:regex]).match(lexeme.token)
     end
-    
+
     respond_to do |format|
       format.html # search.html.erb
       format.json { render json: @matches }
@@ -111,6 +80,8 @@ class LexemesController < ApplicationController
 
     @lexeme.editDate = Time.now
     
+    @lexeme.audio = Audio.find(params[:audio])
+    
     [:root, :sgNounClassMorpheme, :plNounClassMorpheme].each do |item|
         @lexeme[item] = @lexeme.toOrth(@lexeme[item])
     end
@@ -136,6 +107,9 @@ class LexemesController < ApplicationController
     @lexeme = Lexeme.find(params[:id])
     
     updated_lexeme = params[:lexeme]
+
+    @lexeme.editDate = Time.now
+    @lexeme.audio = Audio.find(params[:audio])
 
     sgNounClassMorpheme = updated_lexeme[:sgNounClassMorpheme] or @lexeme.sgNounClassMorpheme
     plNounClassMorpheme = updated_lexeme[:plNounClassMorpheme] or @lexeme.plNounClassMorpheme
@@ -166,4 +140,31 @@ class LexemesController < ApplicationController
       format.json { head :ok }
     end
   end
+
+  # adapted from http://oldwiki.rubyonrails.org/rails/pages/HowtoExportDataAsCSV
+  # and http://www.funonrails.com/2012/01/csv-file-importexport-in-rails-3.html
+  def export_csv
+    filename = "Kikuria_lexemes"    
+
+    #this is required if you want this to work with IE		
+    if request.env['HTTP_USER_AGENT'] =~ /msie/i
+      headers['Pragma'] = 'public'
+      headers["Content-type"] = "text/plain"
+      headers['Cache-Control'] = 'no-cache, must-revalidate, post-check=0, pre-check=0'
+      headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""
+      headers['Expires'] = "0"
+    end
+
+    lexemes = Lexeme.find(:all)
+    csv_data = CSV.generate do |csv|
+      csv << ["token","gloss","pos","root","sgNounClassMorpheme", "sgNounClassNumber", "plNounClassNumber", "classOrGroup", "transcription", "editDate", "sgTranscription", "plTranscription","infTranscription", "additionalForms", "notes", "created_at", "updated_at", "plNounClassMorpheme", "user_id", "basicWord"]
+      lexemes.each do |l|
+        csv << [l.token, l.gloss, l.pos, l.root, l.sgNounClassMorpheme, l.sgNounClassNumber, l.plNounClassNumber, l.classOrGroup, l.transcription, l.editDate, l.sgTranscription, l.plTranscription, l.infTranscription, l.additionalForms, l.notes, l.created_at, l.updated_at, l.plNounClassMorpheme, l.user_id, l.basicWord]
+      end
+    end
+    send_data csv_data,
+      :type => 'text/csv; charset=iso-8859-1; header=present',
+      :disposition => "attachment; filename=#{filename}.csv"
+  end
+
 end

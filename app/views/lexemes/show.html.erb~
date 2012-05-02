@@ -79,7 +79,7 @@
 </p>
 <p>
   <b>Submitter:</b>
-  <%= @lexeme.user.email %>
+  <%= @lexeme.user.displayname or @lexeme.user.email %>
 </p>
 
 

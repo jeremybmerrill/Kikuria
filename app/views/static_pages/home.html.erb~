@@ -1,7 +1,5 @@
-<h1>Oh hey! This here's a database of Kikuria words and phrases!</h1>
-<p>Kikuria is a Bantu (E.10 or E.46) language spoken in Kenya and Tanzania. The data contained in this database was gathered from our consultant in January - April 2012 in Claremont, CA during the course of a Field Methods class at Pomona College.
-
-
+<h1>Oh hey! This is a database of Kikuria words and phrases!</h1>
+<p>Kikuria is a Bantu (E.10 or E.46) language spoken in Kenya and Tanzania. The data contained in this database was gathered from our consultant<%= ", Johnes Kitololo, " unless current_user.nil? %> in January - April 2012 in Claremont, CA during the course of a Field Methods class at Pomona College.
 
 <div id="search">
     <div id="searchLexemes">
@@ -23,54 +21,78 @@
             ["Date", :editDate],
             ["Additional Forms", :additionalForms],
             ["Notes", :notes],] %>
+          <%= label_tag(:field, "Search what?") %>
           <%= select_tag(:field, options_for_select(fields)) %>
 
-          <span>Type what you want to search for. Select the field you want to search (e.g. just the gloss, or everything, or whatever). You can also use the V and C placeholders for vowels and consonants, respectively</span>
+          <p>Type what you want to search for. Select the field you want to search (e.g. just the gloss, or everything, or whatever). You can also use the V and C placeholders for vowels and consonants, respectively</p>
         <% end %>
 
     </div>
     <div id="searchSyntagms">
-        <%= form_tag("/lexemes/search", :method => "get") do %>
-          <%= label_tag(:regex, "Regex search:") %>
-          <%= text_field_tag(:regex) %>
-          <%= submit_tag("Search") %>
-          <% fields = [
-            ["All", :all],
-            #["Token", :token],
-            ["Gloss", :gloss],
-            ["P.O.S.", :pos],
-            ["Root", :root],
-            ["Sg. Noun Class Morpheme", :sgNounClassMorpheme],
-            ["Pl. Noun Class Morpheme", :plNounClassMorpheme],
-            ["Class/Group", :classOrGroup],
-            ["User", :user],
-            ["Date", :editDate],
-            ["Additional Forms", :additionalForms],
-            ["Notes", :notes],] %>
-          <%= select_tag(:field, options_for_select(fields)) %>
-
-        <% end %>
+        <h2>Search Phrases</h2>
+        <%= render 'syntagms/searchform' %>
 
     </div>
 <div>
+<hr style="clear: both;"></hr>
 <div id="latestcontainer">
-    <div id="latestlexemes">
-
+    <div id="latestLexemes">
+        <h3>Latest Lexical Items</h3>
+        <%= link_to 'New Word', new_lexeme_path %>
+        <table id="lexemes_index" class="lexemestable">
+        <thead>
+        <th>Sg. NC</th>
+        <th>Pl. NC</th>
+        <th>Root</th>
+        <th>Gloss</th>
+        <th>POS</th>
+        <th>Date</th>
+        <th>Submitter</th>
+      </thead>
+        <% @recentlexemes.each do |lexeme| %>
+          <tr>
+            <td><%= lexeme.sgNounClassMorpheme %></td>
+            <td><%= lexeme.plNounClassMorpheme %></td>
+            <td><%= lexeme.root %></td>
+            <td><%= lexeme.gloss %></td>
+            <td><%= lexeme.pos %></td>
+            <td><%= lexeme.editDate.strftime("%m/%d/%Y") %></td>
+            <td><%= link_to((lexeme.user.displayname or lexeme.user.email), lexeme.user)%></td>
+          </tr>
+        <% end %>
+        </table>
     </div>
-    <div id="latestsyntagms">
+    <div id="latestSyntagms">
+        <h3>Latest Phrases</h3>
+        <%= link_to 'New Phrase', new_syntagm_path %>
+        <table>
+          <tr>
+            <th>Token</th>
+            <th>Date</th>          
+            <th>Submitter</th>
+          </tr>
 
+          <% @recentsyntagms.each do |syntagm| %>
+          <tr>
+            <td><% puts "*" unless syntagm.grammatical %><%= syntagm.token %></td>
+            <td><%= syntagm.editDate %></td>
+            <td><%= link_to((syntagm.user.displayname or syntagm.user.email), syntagm.user)%></td>
+          </tr>
+          <% end %>
+        </table>
     </div>
 </div>
+<hr style="clear: both;"></hr>
 <p>Interoperability MORE HERE</p>
 
-<p>This database is Jeremy B. Merrill's final project for that course; the code is open-source (license) and available on <a href="http://github.com/jeremybmerrill/kikuria">Github</a>. data contained in this database is also open-source, under a Creative Commons 3.0 BY-NC-SA (and feel free to write if you want one of these terms waived).</p>
+<p>This database is <a href="http://jeremybmerrill.com">Jeremy B. Merrill</a>'s final project for that course; the code is open-source and available on <a href="http://github.com/jeremybmerrill/kikuria">Github</a>. Data contained in this database (having been collected by me) is also open-source, under a Creative Commons 3.0 BY-NC-SA (and feel free to write if you want one of these terms waived, e.g for a non-open-access paper or for a commercial project).</p>
 
 <div id="export">
-The internet is a scary place. Things disappear. It's important that language documentation be retained. This is an important concern discussed in SOMEWHERE. So, download this database! (As comma-separated values, including all metadata, which can be opened in Excel.)
+<h3>Mass Export / Data Retention</h3>
+The internet is a scary place. Things disappear. It's important that language documentation be retained. This is an important concern discussed in SOMEWHERE. So, download this database! (As comma-separated values/CSV, including all metadata, which can be opened in Excel.)
     <table><tr>
-        <td><a href="">All Lexical Items</a></td>
-        <td><a href="">All Phrases</a></td>
-        <td><a href=""> </a></td>
+        <td><%= link_to "All Lexical Items", "/lexemes/export_csv" %></td>
+        <td><%= link_to "All Phrases", "/syntagms/export_csv" %></td>
     </tr></table>
 </p>
 

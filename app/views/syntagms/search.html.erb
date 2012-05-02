@@ -1,0 +1,35 @@
+<h3>Matches</h3>
+<span id="yousearchedfor">You searched for: <span id="searchterm"><%= @regex %></span></span>
+<% if !@matches.nil? #and @matches.size != 0 %>
+<table id="lexemes_searchresults" class="lexemestable">
+  <thead>
+    <th>Token</th>
+    <th>Gloss</th>
+    <th>Grammatical</th>
+    <th>Classorgroup</th>
+    <th>Notes</th>
+    <th>Editdate</th>
+    <th>Submitter</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </thead>
+
+<% @matches.each do |syntagm| %>
+  <tr>
+    <td><%= syntagm.token %></td>
+    <td><%= syntagm.gloss %></td>
+    <td><%= syntagm.grammatical %></td>
+    <td><%= syntagm.classOrGroup %></td>
+    <td><%= syntagm.notes %></td>
+    <td><%= syntagm.editDate %></td>
+    <td><%= syntagm.user.displayname or syntagm.user.email %></td>
+    <td><%= link_to 'Show', syntagm %></td>
+    <td><%= link_to 'Edit', edit_syntagm_path(syntagm) %></td>
+    <td><%= link_to 'Destroy', syntagm, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+<% else %>
+    <span> There's nothing here!</span>
+<% end %>

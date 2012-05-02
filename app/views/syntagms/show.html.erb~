@@ -32,8 +32,15 @@
 
 <p>
   <b>Submitter:</b>
-  <%= @syntagm.user_id %>
+  <%= @syntagm.user.displayname or @syntagm.user.email %>
 </p>
+
+<% unless @syntagm.audio.nil? %>
+    <p>
+      <b>Audio:</b>
+      <%= link_to "Audio", @syntagm.audio %>
+    </p>
+<% end %>
 
 
 <%= link_to 'Edit', edit_syntagm_path(@syntagm) %> |

@@ -22,7 +22,7 @@
     <td><%= syntagm.classOrGroup %></td>
     <td><%= syntagm.notes %></td>
     <td><%= syntagm.editDate %></td>
-    <td><%= syntagm.user_id %></td>
+    <td><%= syntagm.user.displayname or syntagm.user.email %></td>
     <td><%= link_to 'Show', syntagm %></td>
     <td><%= link_to 'Edit', edit_syntagm_path(syntagm) %></td>
     <td><%= link_to 'Destroy', syntagm, confirm: 'Are you sure?', method: :delete %></td>

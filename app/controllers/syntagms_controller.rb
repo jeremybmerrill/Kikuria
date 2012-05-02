@@ -27,64 +27,29 @@ class SyntagmsController < ApplicationController
     end
   end
 
-  # adapted from http://oldwiki.rubyonrails.org/rails/pages/HowtoExportDataAsCSV
-  def export_syntagms_csv
-    syntagms = Syntagm.find(:all)
-    stream_csv do |csv|
-      csv << [ "token", "gloss", "grammatical", "classOrGroup", "notes", "editDate", "user_id", "created_at", "updated_at"]
-      syntagms.each do |s|
-        csv << [s.token, s.gloss, s.grammatical, s.classOrGroup, s.notes, s.editDate, s.user_id, s.created_at, s.updated_at]
-      end
-    end
-  end
-
-  private
-    def stream_csv
-       filename = params[:action] + ".csv"    
-	
-       #this is required if you want this to work with IE		
-       if request.env['HTTP_USER_AGENT'] =~ /msie/i
-         headers['Pragma'] = 'public'
-         headers["Content-type"] = "text/plain"
-         headers['Cache-Control'] = 'no-cache, must-revalidate, post-check=0, pre-check=0'
-         headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""
-         headers['Expires'] = "0"
-       else
-         headers["Content-Type"] ||= 'text/csv'
-         headers["Content-Disposition"] = "attachment; filename=\"#{filename}\"" 
-       end
- 
-      render :text => Proc.new { |response, output|
-        csv = FasterCSV.new(output, :row_sep => "\r\n") 
-        yield csv
-      }
-    end
-
-
   def search
-    #@lexeme = Lexeme.find(params[:id])
     @matches = []
     #@nonmatches = []
     regex = params[:regex]
     regex = regex.gsub("C", "[bcdghjklmnN9rRstwy]")
     regex = regex.gsub("V", "[aeiouEIOU]")
-    regex = Regexp.new(regex)
 
     fields = [params[:field]]
     if fields == ['all']
-        fields = ['sgNounClassMorpheme', 'plNounClassMorpheme', 'root', 'sgTranscription', 'plTranscription']
+        fields = ['token', 'gloss', 'notes',]
     end
     
-    Lexeme.all.each do |lexeme|
+    Syntagm.all.each do |syntagm|
+        regexp = Regexp.new(syntagm.toOrth(regex))
         fields.each do |field|
-            @matches << lexeme if regex.match(lexeme[field]) and !@matches.include?(lexeme)
+            @matches << syntagm if regex.match(syntagm[field]) and !@matches.include?(syntagm)
         end
-        #@nonmatches << lexeme unless Regexp.new(params[:regex]).match(lexeme.token)
+        #@nonmatches << syntagm unless Regexp.new(params[:regex]).match(syntagm.token)
     end
     
     respond_to do |format|
       format.html # search.html.erb
-      format.json { render json: @lexeme }
+      format.json { render json: @syntagm }
     end
   end
 
@@ -109,6 +74,14 @@ class SyntagmsController < ApplicationController
   def create
     @syntagm = Syntagm.new(params[:syntagm])
 
+    @syntagm.editDate = Time.now
+    
+    @syntagm[:token] = @syntagm.toOrth(@syntagm[:token])
+
+    @syntagm.audio = Audio.find(params[:audio])
+
+    current_user.syntagms << @syntagm
+
     respond_to do |format|
       if @syntagm.save
         format.html { redirect_to @syntagm, notice: 'Syntagm was successfully created.' }
@@ -124,6 +97,12 @@ class SyntagmsController < ApplicationController
   # PUT /syntagms/1.json
   def update
     @syntagm = Syntagm.find(params[:id])
+
+    @syntagm.editDate = Time.now
+    
+    @syntagm[:token] = @syntagm.toOrth(@syntagm[:token])
+
+    @syntagm.audio = Audio.find(params[:audio])
 
     respond_to do |format|
       if @syntagm.update_attributes(params[:syntagm])
@@ -147,4 +126,31 @@ class SyntagmsController < ApplicationController
       format.json { head :ok }
     end
   end
+
+  # adapted from http://oldwiki.rubyonrails.org/rails/pages/HowtoExportDataAsCSV
+  # and http://www.funonrails.com/2012/01/csv-file-importexport-in-rails-3.html
+  def export_csv
+    filename = "Kikuria_syntagms"    
+
+    #this is required if you want this to work with IE		
+    if request.env['HTTP_USER_AGENT'] =~ /msie/i
+      headers['Pragma'] = 'public'
+      headers["Content-type"] = "text/plain"
+      headers['Cache-Control'] = 'no-cache, must-revalidate, post-check=0, pre-check=0'
+      headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""
+      headers['Expires'] = "0"
+    end
+
+    syntagms = Syntagm.find(:all)
+    csv_data = CSV.generate do |csv|
+      csv << [ "token", "gloss", "grammatical", "classOrGroup", "notes", "editDate", "user_id", "created_at", "updated_at"]
+      syntagms.each do |s|
+        csv << [s.token, s.gloss, s.grammatical, s.classOrGroup, s.notes, s.editDate, s.user_id, s.created_at, s.updated_at]
+      end
+    end
+    send_data csv_data,
+      :type => 'text/csv; charset=iso-8859-1; header=present',
+      :disposition => "attachment; filename=#{filename}.csv"
+  end
+
 end

@@ -11,12 +11,14 @@ class Ability
          can :sign_out
          can :search, :all
          can :searchform, :all
+         can :export_csv, :all
        elsif not user.id.nil?
          can :read, :all
          can :create, :all
          can :sign_out
          can :search, :all
          can :searchform, :all
+         can :export_csv, :all
          can [:update, :edit, :destroy], Lexeme.all.find_all{|item| item.user == user}
          can [:update, :edit, :destroy], Syntagm.all.find_all{|item| item.user == user}
 	     can [:update, :edit, :destroy], Comment.all.find_all{|item| item.user == user}
@@ -25,6 +27,7 @@ class Ability
          can :sign_in, :sign_up
          can :search, :all
          can :searchform, :all
+         can :export_csv, :all
        end
 
     # Define abilities for the passed in user here. For example:

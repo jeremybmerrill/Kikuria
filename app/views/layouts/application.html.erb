@@ -26,11 +26,11 @@
 </head>
 <body>
 <div id="topbar">
-     <a href="/lexemes/"><h1>Kikuria Database</h1></a>
+     <a href="/"><h1>Kikuria Database</h1></a>
     <span id="links">
     <a href="/lexemes/">Home</a>
-    <a href="/lexemes/searchform">Search</a>
     <% if user_signed_in? %>
+    <%= link_to "Edit Profile", edit_user_registration_path %>
         <span style="color: white;">Welcome, <%= current_user.email %></span> <%= link_to "Sign Out", destroy_user_session_path, :method => :delete %>
     <% else %>
         <a href="/users/sign_in">Sign In</a><span style="color: white;">/</span><a href="/users/sign_up">Sign Up</a> 

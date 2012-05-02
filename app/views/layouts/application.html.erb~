@@ -8,9 +8,6 @@
 <!-- DataTables CSS -->
 <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.8.2/css/jquery.dataTables.css">
  
-<!-- jQuery -->
-<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.1.min.js"></script>
- 
 <!-- DataTables -->
 <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.8.2/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
@@ -29,11 +26,11 @@
 </head>
 <body>
 <div id="topbar">
-     <a href="/lexemes/"><h1>Kikuria Database</h1></a>
+     <a href="/"><h1>Kikuria Database</h1></a>
     <span id="links">
     <a href="/lexemes/">Home</a>
-    <a href="/lexemes/searchform">Search</a>
     <% if user_signed_in? %>
+    <%= link_to edit_user_registration_path, "Edit Profile" %>
         <span style="color: white;">Welcome, <%= current_user.email %></span> <%= link_to "Sign Out", destroy_user_session_path, :method => :delete %>
     <% else %>
         <a href="/users/sign_in">Sign In</a><span style="color: white;">/</span><a href="/users/sign_up">Sign Up</a> 

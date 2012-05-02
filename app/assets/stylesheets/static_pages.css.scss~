@@ -1,0 +1,29 @@
+// Place all the styles related to the StaticPages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+#search{
+    clear: both;
+    #searchLexemes{
+        width: 49%;
+        float: left;
+    }
+
+    #searchSyntagms{
+        width: 49%;
+        float: left;
+    }
+}
+#latestcontainer{
+    clear: both;
+    #latestLexemes{
+        width: 49%;
+        float: left;
+    }
+
+    #latestSyntagms{
+        width: 49%;
+        float: left;
+    }
+}

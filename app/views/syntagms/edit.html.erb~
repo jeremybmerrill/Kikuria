@@ -1,0 +1,6 @@
+<h1>Editing syntagm</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Show', @syntagm %> |
+<%= link_to 'Back', syntagms_path %>

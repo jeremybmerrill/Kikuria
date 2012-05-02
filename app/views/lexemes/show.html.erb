@@ -82,6 +82,11 @@
   <%= @lexeme.user.displayname or @lexeme.user.email %>
 </p>
 
+<% unless @lexeme.audio.nil? %>
+    <p>
+      <%= link_to "Audio", @lexeme.audio %>
+    </p>
+<% end %>
 
 <%= link_to 'Edit', edit_lexeme_path(@lexeme) %> |
 <%= link_to 'Back', lexemes_path %>

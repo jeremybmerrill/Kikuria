@@ -1,0 +1,21 @@
+<%= form_tag("/syntagms/search", :method => "get") do %>
+  <%= label_tag(:regex, "Regex search:") %>
+  <%= text_field_tag(:regex) %>
+  <%= submit_tag("Search") %>
+  <% fields = [
+    ["All", :all],
+    ["Token", :token],
+    ["Gloss", :gloss],
+    ["Notes", :notes],] %>
+  <div>Search what? <%= select_tag(:field, options_for_select(fields)) %></div>
+    <div>
+    <%= check_box_tag(:grammatical_only) %>
+    <%= label_tag(:grammatical_only, "Only grammatical phrases") %></div>
+
+    <div><%= check_box_tag(:class, 1, true) %>
+    <%= label_tag(:class, "Include tokens from class") %>
+    <%= check_box_tag(:group, 1, true) %>
+    <%= label_tag(:group, "Include tokens from small groups") %></div>
+
+  <p>Type what you want to search for. Select the field you want to search (e.g. just the gloss, or everything, or whatever). You can also use the V and C placeholders for vowels and consonants, respectively</p>
+<% end %>

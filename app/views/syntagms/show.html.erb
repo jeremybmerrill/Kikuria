@@ -35,6 +35,12 @@
   <%= @syntagm.user.displayname or @syntagm.user.email %>
 </p>
 
+<% unless @syntagm.audio.nil? %>
+    <p>
+      <%= link_to "Audio", @syntagm.audio %>
+    </p>
+<% end %>
+
 
 <%= link_to 'Edit', edit_syntagm_path(@syntagm) %> |
 <%= link_to 'Back', syntagms_path %>
