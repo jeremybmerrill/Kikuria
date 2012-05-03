@@ -12,7 +12,7 @@
   <% end %>
   <div class="grouping">
     <div class="field smalltoken">
-      <%= f.label :sgNounClassMorpheme, "Singular noun class morpheme" %><br />
+      <%= f.label :sgNounClassMorpheme, "Singular noun class morpheme (if relevant)" %><br />
       <%= f.text_field :sgNounClassMorpheme %>
     </div>
     <div class="field" style="display: none;">
@@ -47,18 +47,14 @@
       </div>
       <div class="field">
         <%= f.label :pos, "Part of Speech" %><br />
-        <%= f.select(:pos, options_for_select([["Noun","n"], ["Verb","v"],["Adjective","adj"],["Adverb","adv"],["Pronoun","pron"],["Preposition","prep"],])) %>
+        <%= f.select(:pos, options_for_select(Lexeme.partsOfSpeech.map{ |s| [s,s]})) %>
       </div>
       <div class="field">
         <%= f.label :classOrGroup, "Was this in class or in small groups?" %><br />
         <%= f.select(:classOrGroup, options_for_select([["Group","g"], ["Class","c"],])) %>
       </div>
   </div>
-  <div class="grouping" style="display: none;">
-    <div class="field token">
-      <%= f.label :transcription %><br />
-      <%= f.text_field :transcription %>
-    </div>
+  <div class="grouping ifNoun" style="display: none;">
     <div class="field token"> <!-- eventually, based on POS selection, hide/show these -->
       <%= f.label :sgTranscription, "Singular Transcription" %><br />
       <%= f.text_field :sgTranscription %>
@@ -67,9 +63,11 @@
       <%= f.label :plTranscription, "Plural Transcription" %><br />
       <%= f.text_field :plTranscription %>
     </div>
-    <div class="field token">
-      <%= f.label :infTranscription, "Infinitive Transcription" %><br />
-      <%= f.text_field :infTranscription %>
+  </div>
+  <div class="grouping ifVerb" style="display: none;">
+    <div class="field">
+      <%= f.label :tense, "Tense" %><br />
+      <%= f.select(:pos, options_for_select(Lexeme.tenses.map{ |s| [s,s]})) %>
     </div>
   </div>
   <div class="field bigtext">
@@ -78,11 +76,11 @@
   </div>
   <div class="field">
     <%= label_tag :audio, "Link to Audio File" %><br />
-    <%= select_tag(:audio, Audio.all.collect { |c| [c.id, c.description] }.insert(0,[""])) %>
+    <%= select_tag(:audio, options_from_collection_for_select(Audio.all, :id, :description), {:include_blank => true}) %>
     <%= link_to "Add New Audio", new_audio_path, :popup => true %>
   </div>
   <div class="field bigtext">
-    <%= f.label :notes, "Any notes." %><br />
+    <%= f.label :notes, "Any notes. (e.g. time of utterance in recording, tags)" %><br />
     <%= f.text_area :notes %>
   </div>
   <div class="actions">

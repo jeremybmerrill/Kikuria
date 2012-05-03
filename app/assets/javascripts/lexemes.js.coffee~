@@ -2,4 +2,17 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
-$(document).ready( =>    $('#lexemes_searchresults').dataTable(); );
+$(document).ready( () =>    
+    $('#lexemes_searchresults').dataTable(); 
+);
+$('select#lexeme_pos').change( () =>
+    if $('select#lexeme_pos').val() == "Noun"
+        $('div#ifNoun').show()
+    if $('select#lexeme_pos').val() == "Verb"
+        $('div#ifVerb').show()
+);
+
+
+  $('.shopping_cart').bind 'click', (event) =>
+    @customer.purchase @cart
+
