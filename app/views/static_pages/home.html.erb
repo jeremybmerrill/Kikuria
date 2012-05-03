@@ -74,7 +74,7 @@
 
           <% @recentsyntagms.each do |syntagm| %>
           <tr>
-            <td><% puts "*" unless syntagm.grammatical %><%= link_to syntagm.token, syntagm %></td>
+            <td><%= "*" unless syntagm.grammatical %><%= link_to syntagm.token, syntagm %></td>
             <td><%= syntagm.editDate %></td>
             <td><%= link_to((syntagm.user.displayname or syntagm.user.email), syntagm.user)%></td>
           </tr>

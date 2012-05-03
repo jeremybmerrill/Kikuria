@@ -2,17 +2,12 @@
 
 <p>
   <b>Token:</b>
-  <%= @syntagm.token %>
+  <%= "*" unless @syntagm.grammatical %> <%= @syntagm.token %>
 </p>
 
 <p>
   <b>Gloss:</b>
   <%= @syntagm.gloss %>
-</p>
-
-<p>
-  <b>Grammatical:</b>
-  <%= @syntagm.grammatical %>
 </p>
 
 <p>

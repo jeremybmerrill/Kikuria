@@ -4,7 +4,6 @@
   <thead>
     <th>Token</th>
     <th>Gloss</th>
-    <th>Grammatical</th>
     <th>Classorgroup</th>
     <th>Notes</th>
     <th>Editdate</th>
@@ -16,9 +15,8 @@
 
 <% @syntagms.each do |syntagm| %>
   <tr>
-    <td><%= syntagm.token %></td>
+    <td><%= "*" unless syntagm.grammatical %> <%= syntagm.token %></td>
     <td><%= syntagm.gloss %></td>
-    <td><%= syntagm.grammatical %></td>
     <td><%= syntagm.classOrGroup %></td>
     <td><%= syntagm.notes %></td>
     <td><%= syntagm.editDate %></td>
