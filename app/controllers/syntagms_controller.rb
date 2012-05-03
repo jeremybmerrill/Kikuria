@@ -78,7 +78,7 @@ class SyntagmsController < ApplicationController
     
     @syntagm[:token] = @syntagm.toOrth(@syntagm[:token])
 
-    @syntagm.audio = Audio.find(params[:audio])
+    @syntagm.audio = Audio.find(params[:audio]) unless params[:audio].nil? or params[:audio] == ""
 
     current_user.syntagms << @syntagm
 
@@ -102,7 +102,7 @@ class SyntagmsController < ApplicationController
     
     @syntagm[:token] = @syntagm.toOrth(@syntagm[:token])
 
-    @syntagm.audio = Audio.find(params[:audio])
+    @syntagm.audio = Audio.find(params[:audio]) unless params[:audio].nil? or params[:audio] == ""
 
     respond_to do |format|
       if @syntagm.update_attributes(params[:syntagm])

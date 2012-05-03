@@ -80,7 +80,7 @@ class LexemesController < ApplicationController
 
     @lexeme.editDate = Time.now
     
-    @lexeme.audio = Audio.find(params[:audio])
+    @lexeme.audio = Audio.find(params[:audio]) unless params[:audio].nil? or params[:audio] == ""
     
     [:root, :sgNounClassMorpheme, :plNounClassMorpheme].each do |item|
         @lexeme[item] = @lexeme.toOrth(@lexeme[item])
@@ -109,7 +109,7 @@ class LexemesController < ApplicationController
     updated_lexeme = params[:lexeme]
 
     @lexeme.editDate = Time.now
-    @lexeme.audio = Audio.find(params[:audio])
+    @lexeme.audio = Audio.find(params[:audio]) unless params[:audio].nil? or params[:audio] == ""
 
     sgNounClassMorpheme = updated_lexeme[:sgNounClassMorpheme] or @lexeme.sgNounClassMorpheme
     plNounClassMorpheme = updated_lexeme[:plNounClassMorpheme] or @lexeme.plNounClassMorpheme
