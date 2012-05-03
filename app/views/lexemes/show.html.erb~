@@ -10,7 +10,8 @@
 
 <p>
   <b>Pos:</b>
-  <%= @lexeme.pos %>
+  <% link = "http://linguistics-ontology.org/gold/2010/" + Lexeme.translateToGold(@lexeme.pos) %> 
+  <a href="{# link }"> <%= @lexeme.pos %></a>
 </p>
 
 <p>
@@ -82,6 +83,11 @@
   <%= @lexeme.user.displayname or @lexeme.user.email %>
 </p>
 
+<% unless @lexeme.audio.nil? %>
+    <p>
+      <%= link_to "Audio", @lexeme.audio %>
+    </p>
+<% end %>
 
 <%= link_to 'Edit', edit_lexeme_path(@lexeme) %> |
 <%= link_to 'Back', lexemes_path %>
